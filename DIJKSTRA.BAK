@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#define infinity 9999
+void dijkstra(int adj[5][5],int n,int s);
+int main()
+{
+int adj[5][5],i,j,v;
+clrscr();
+printf("\n enter no of vertix: \n");
+scanf("%d",&v);
+printf("\n enter the adjacency matrix: \n");
+for(i=0;i<v;i++)
+{
+for(j=0;j<v;j++)
+{
+printf("\n enter the starting node: \n");
+scanf("%d",&adj[i][j]);
+}
+}
+return 0;
+}
+
+void dijkstra(int adj[5][5],int n,int w)
+{
+int a[5][5],b[5],c[5];
+int visited[5],count,i,j,d,e,v;
+for(i=0;i<v;i++)
+{
+for(j=0;j<v;j++)
+{
+if(adj[i][j]==0)
+a[i][j]=infinity;
+else
+a[i][j]=adj[i][j];
+}
+}
+for(i=0;i<v;i++)
+{
+b[i]=a[w][i];
+c[i]=w;
+visited[i]=0;
+}
+b[w]=0;
+visited[w]=1;
+count=1;
+while(count<n-1)
+{
+d=infinity;
+for(i=0;i<n;i++)
+if(b[i]<d&&!visited[i])
+{
+d=b[i];
+e=i;
+}
+visited[e]=1;
+for(i=0;i<v;i++)
+if(!visited[i])
+if(d+a[e][i]<b[i])
+{
+b[i]=d+a[e][i];
+c[i]=e;
+}
+count++;
+}
+for(i=0;i<v;i++)
+if(i!=e)
+{
+printf("\ndistnce of node%d=%d",i,e);
+printf("\npath=%d",i);
+j=i;
+do
+{
+j=c[i];
+printf("%d/t",j);
+}
+while(j!=w);
+}
+}
